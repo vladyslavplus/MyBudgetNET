@@ -1,0 +1,13 @@
+﻿using MyBudget.BLL.DTOs.Expense;
+
+namespace MyBudget.BLL.Services.Interfaces;
+
+public interface IExpenseService
+{
+    Task<IEnumerable<ExpenseMiniResponseDto>> GetAllByUserIdAsync(int userId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ExpenseMiniResponseDto>> GetByCategoryIdAsync(int categoryId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ExpenseMiniResponseDto>> GetByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default);
+    Task<ExpenseResponseDto> CreateAsync(ExpenseCreateDto dto, CancellationToken cancellationToken = default);
+    Task<ExpenseResponseDto> UpdateAsync(int id, ExpenseUpdateDto dto, CancellationToken cancellationToken = default);
+    Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default);
+}

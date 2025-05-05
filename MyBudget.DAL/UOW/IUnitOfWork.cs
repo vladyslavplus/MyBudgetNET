@@ -4,9 +4,9 @@ namespace MyBudget.DAL.UOW;
 
 public interface IUnitOfWork : IDisposable
 {
-    IUserRepository UserRepository { get; }
-    IExpenseRepository ExpenseRepository { get; }
-    ICategoryRepository CategoryRepository { get; }
+    IUserRepository Users { get; }
+    IExpenseRepository Expenses { get; }
+    ICategoryRepository Categories { get; }
     
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

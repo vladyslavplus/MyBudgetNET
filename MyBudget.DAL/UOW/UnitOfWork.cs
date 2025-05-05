@@ -7,17 +7,17 @@ namespace MyBudget.DAL.UOW;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext _context;
-    public IUserRepository UserRepository { get; }
-    public IExpenseRepository ExpenseRepository { get; }
-    public ICategoryRepository CategoryRepository { get; }
+    public IUserRepository Users { get; }
+    public IExpenseRepository Expenses { get; }
+    public ICategoryRepository Categories { get; }
 
     public UnitOfWork(ApplicationDbContext context)
     {
         _context = context;
         
-        UserRepository = new UserRepository(context);
-        ExpenseRepository = new ExpenseRepository(context);
-        CategoryRepository = new CategoryRepository(context);
+        Users = new UserRepository(context);
+        Expenses = new ExpenseRepository(context);
+        Categories = new CategoryRepository(context);
     }
     
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

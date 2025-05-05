@@ -11,26 +11,37 @@ public class ExpenseRepository : GenericRepository<Expense>, IExpenseRepository
     {
     }
 
-    public async Task<Expense?> GetByUserIdAsync(int userId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Expense>> GetByUserIdAsync(int userId, CancellationToken cancellationToken = default)
     {
-        return await _dbSet
+        return await ExpensesWithCategory
+            .Where(e => e.UserId == userId)
             .AsNoTracking()
-            .FirstOrDefaultAsync(e => e.UserId == userId, cancellationToken);
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<IEnumerable<Expense>> GetByCategoryIdAsync(int categoryId, CancellationToken cancellationToken = default)
     {
-        return await _dbSet
-            .AsNoTracking()
+        return await ExpensesWithCategory
             .Where(e => e.CategoryId == categoryId)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
     }
 
     public async Task<IEnumerable<Expense>> GetByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
     {
-        return await _dbSet
-            .AsNoTracking()
+        return await ExpensesWithCategory
             .Where(e => e.Date >= startDate && e.Date <= endDate)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
     }
+
+    public async Task<Expense?> GetByIdWithCategoryAndUserAsync(int id, CancellationToken cancellationToken = default)
+    {
+        return await ExpensesWithCategory
+            .Include(e => e.User)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
+    }
+    
+    private IQueryable<Expense> ExpensesWithCategory => _dbSet.Include(e => e.Category);
 }
