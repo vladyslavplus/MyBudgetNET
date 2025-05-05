@@ -1,0 +1,49 @@
+# User-specific files
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+out/
+TestResults/
+
+# Logs
+Logs/
+*.log
+
+# Entity Framework Migrations (optional)
+Migrations/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+packages/
+.nuget/
+
+# Rider
+.idea/
+
+# Visual Studio
+.vs/
+.vs2019/
+.vs2022/
+*.dbmdl
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Publish output
+wwwroot/
