@@ -1,9 +1,11 @@
+using MyBudget.API.Logging;
 using MyBudget.DAL;
 using MyBudget.DAL.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Host.ConfigureSerilog();
 builder.Services.AddDataAccess(builder.Configuration);
 
 builder.Services.AddControllers();
