@@ -1,6 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.API", "MyBudget.API\MyBudget.API.csproj", "{26E82F45-DF45-49B3-AADA-37081212BA1F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B645C73E-0045-406D-81F3-C9E444992D07} = {B645C73E-0045-406D-81F3-C9E444992D07}
+		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42} = {E44FD1FC-6CA0-4642-9521-99D5D3A45F42}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.DAL", "MyBudget.DAL\MyBudget.DAL.csproj", "{B645C73E-0045-406D-81F3-C9E444992D07}"
 EndProject
