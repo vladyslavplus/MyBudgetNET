@@ -15,7 +15,8 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         return await _dbSet
             .AsNoTracking()
-            .Include(u => u.Expenses) 
+            .Include(u => u.Expenses)
+            .ThenInclude(e => e.Category)
             .ToListAsync(cancellationToken);
     }
 
@@ -23,7 +24,8 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         return await _dbSet
             .AsNoTracking()
-            .Include(u => u.Expenses) 
+            .Include(u => u.Expenses)
+            .ThenInclude(e => e.Category)
             .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
     }
 
@@ -31,7 +33,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
     {
         return await _dbSet
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower(), cancellationToken);
     }
 
     public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken = default)

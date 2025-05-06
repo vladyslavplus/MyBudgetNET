@@ -18,10 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\MyBudget.BLL\MyBudget.BLL.csproj" />
       <ProjectReference Include="..\MyBudget.DAL\MyBudget.DAL.csproj" />
     </ItemGroup>

@@ -27,14 +27,6 @@ public class ExpenseRepository : GenericRepository<Expense>, IExpenseRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Expense>> GetByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
-    {
-        return await ExpensesWithCategory
-            .Where(e => e.Date >= startDate && e.Date <= endDate)
-            .AsNoTracking()
-            .ToListAsync(cancellationToken);
-    }
-
     public async Task<Expense?> GetByIdWithCategoryAndUserAsync(int id, CancellationToken cancellationToken = default)
     {
         return await ExpensesWithCategory

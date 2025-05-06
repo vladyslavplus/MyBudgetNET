@@ -22,15 +22,17 @@ public class ExpenseService : IExpenseService
         return expenses.Adapt<IEnumerable<ExpenseMiniResponseDto>>();
     }
 
+    public async Task<ExpenseResponseDto> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    {
+        var expense = await _unitOfWork.Expenses.GetByIdWithCategoryAndUserAsync(id, cancellationToken)
+                      ?? throw new NotFoundException($"Expense with ID {id} not found.");
+
+        return expense.Adapt<ExpenseResponseDto>();
+    }
+    
     public async Task<IEnumerable<ExpenseMiniResponseDto>> GetByCategoryIdAsync(int categoryId, CancellationToken cancellationToken = default)
     {
         var expenses = await _unitOfWork.Expenses.GetByCategoryIdAsync(categoryId, cancellationToken);
-        return expenses.Adapt<IEnumerable<ExpenseMiniResponseDto>>();
-    }
-
-    public async Task<IEnumerable<ExpenseMiniResponseDto>> GetByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
-    {
-        var expenses = await _unitOfWork.Expenses.GetByDateRangeAsync(startDate, endDate, cancellationToken);
         return expenses.Adapt<IEnumerable<ExpenseMiniResponseDto>>();
     }
 

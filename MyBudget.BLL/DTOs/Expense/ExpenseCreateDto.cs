@@ -6,4 +6,5 @@ public class ExpenseCreateDto
     public DateTime Date { get; set; } = DateTime.UtcNow;
     public string? Description { get; set; }
     public int CategoryId { get; set; }
+    public int UserId { get; set; }
 }
