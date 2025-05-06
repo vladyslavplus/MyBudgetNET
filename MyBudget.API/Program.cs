@@ -1,4 +1,5 @@
 using MyBudget.API.Logging;
+using MyBudget.API.Middlewares;
 using MyBudget.BLL;
 using MyBudget.DAL;
 using MyBudget.DAL.Data;
@@ -32,6 +33,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 
