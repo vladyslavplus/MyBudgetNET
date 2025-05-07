@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBudget.BLL.DTOs.User;
 using MyBudget.BLL.Services.Interfaces;
+using MyBudget.DAL.Entities.HelpModels;
 
 namespace MyBudget.API.Controllers;
 
@@ -31,6 +32,15 @@ public class UserController : ControllerBase
     {
         var users = await _userService.GetAllFullAsync(cancellationToken);
         return Ok(users);
+    }
+    
+    [HttpGet("paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPaginated([FromQuery] UserParameters parameters, CancellationToken cancellationToken)
+    {
+        var paginatedExpenses = await _userService.GetPaginatedAsync(parameters, cancellationToken);
+        return Ok(paginatedExpenses);
     }
     
     [HttpGet("{id:int}")]

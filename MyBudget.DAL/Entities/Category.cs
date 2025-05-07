@@ -1,8 +1,8 @@
-﻿namespace MyBudget.DAL.Entities;
+﻿    namespace MyBudget.DAL.Entities;
 
-public class Category
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
-}
+    public class Category
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+    }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBudget.BLL.DTOs.Expense;
 using MyBudget.BLL.Services.Interfaces;
+using MyBudget.DAL.Entities.HelpModels;
 
 namespace MyBudget.API.Controllers;
 
@@ -38,6 +39,15 @@ public class ExpenseController : ControllerBase
     {
         var expenses = await _expenseService.GetByCategoryIdAsync(categoryId, cancellationToken);
         return Ok(expenses);
+    }
+    
+    [HttpGet("paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPaginated([FromQuery] ExpenseParameters parameters, CancellationToken cancellationToken)
+    {
+        var paginatedExpenses = await _expenseService.GetPaginatedAsync(parameters, cancellationToken);
+        return Ok(paginatedExpenses);
     }
     
     [HttpPost]

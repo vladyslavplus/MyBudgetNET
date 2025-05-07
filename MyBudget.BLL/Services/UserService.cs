@@ -3,6 +3,8 @@ using MyBudget.BLL.DTOs.User;
 using MyBudget.BLL.Exceptions;
 using MyBudget.BLL.Services.Interfaces;
 using MyBudget.DAL.Entities;
+using MyBudget.DAL.Entities.HelpModels;
+using MyBudget.DAL.Helpers;
 using MyBudget.DAL.UOW;
 
 namespace MyBudget.BLL.Services;
@@ -20,6 +22,21 @@ public class UserService : IUserService
     {
         var users = await _unitOfWork.Users.GetAllUsersWithExpensesAsync(cancellationToken); 
         return users.Adapt<IEnumerable<UserFullResponseDto>>();
+    }
+
+    public async Task<PagedList<UserResponseDto>> GetPaginatedAsync(UserParameters parameters, CancellationToken cancellationToken = default)
+    {
+        var pagedUsers = await _unitOfWork.Users
+            .GetAllPaginatedAsync(parameters, new SortHelper<User>(), cancellationToken);
+        
+        var mapped = pagedUsers.Select(e => e.Adapt<UserResponseDto>()).ToList();
+        
+        return new PagedList<UserResponseDto>(
+            mapped,
+            pagedUsers.TotalCount,
+            pagedUsers.CurrentPage,
+            pagedUsers.PageSize
+        );
     }
 
     public async Task<UserFullResponseDto> GetFullByIdAsync(int id, CancellationToken cancellationToken = default)

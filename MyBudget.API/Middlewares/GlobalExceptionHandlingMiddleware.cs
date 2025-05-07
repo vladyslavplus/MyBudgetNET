@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Text.Json;
 using MyBudget.BLL.Exceptions;
 
@@ -35,6 +36,7 @@ public class GlobalExceptionHandlingMiddleware
             NotFoundException => (HttpStatusCode.NotFound, exception.Message),
             ConflictException => (HttpStatusCode.Conflict, exception.Message),
             ArgumentException => (HttpStatusCode.BadRequest, exception.Message),
+            ValidationException => (HttpStatusCode.BadRequest, exception.Message),
             _ => (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
         };
 

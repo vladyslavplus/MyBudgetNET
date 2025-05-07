@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyBudget.BLL.DTOs.Category;
 using MyBudget.BLL.Services.Interfaces;
+using MyBudget.DAL.Entities;
+using MyBudget.DAL.Entities.HelpModels;
+using MyBudget.DAL.Helpers;
 
 namespace MyBudget.API.Controllers;
 
@@ -9,7 +12,7 @@ namespace MyBudget.API.Controllers;
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
-
+    
     public CategoryController(ICategoryService categoryService)
     {
         _categoryService = categoryService;
@@ -31,6 +34,16 @@ public class CategoryController : ControllerBase
     {
         var categories = await _categoryService.GetAllWithExpensesAsync(cancellationToken);
         return Ok(categories);
+    }
+    
+    [HttpGet("paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetPaginated([FromQuery] CategoryParameters parameters, CancellationToken cancellationToken)
+    {
+        var result = await _categoryService.GetPaginatedAsync(parameters, cancellationToken);
+        return Ok(result);
     }
     
     [HttpGet("{id:int}")]

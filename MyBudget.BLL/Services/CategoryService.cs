@@ -4,6 +4,8 @@ using MyBudget.BLL.DTOs.Category;
 using MyBudget.BLL.Exceptions;
 using MyBudget.BLL.Services.Interfaces;
 using MyBudget.DAL.Entities;
+using MyBudget.DAL.Entities.HelpModels;
+using MyBudget.DAL.Helpers;
 using MyBudget.DAL.UOW;
 
 namespace MyBudget.BLL.Services;
@@ -27,6 +29,21 @@ public class CategoryService : ICategoryService
     {
         var categories = await _unitOfWork.Categories.GetAllWithExpensesAsync(cancellationToken);
         return categories.Adapt<IEnumerable<CategoryFullResponseDto>>();
+    }
+
+    public async Task<PagedList<CategoryResponseDto>> GetPaginatedAsync(CategoryParameters parameters, CancellationToken cancellationToken = default)
+    {
+        var pagedCategories = await _unitOfWork.Categories
+            .GetAllPaginatedAsync(parameters, new SortHelper<Category>(), cancellationToken);
+
+        var mapped = pagedCategories.Select(c => c.Adapt<CategoryResponseDto>()).ToList();
+
+        return new PagedList<CategoryResponseDto>(
+            mapped,
+            pagedCategories.TotalCount,
+            pagedCategories.CurrentPage,
+            pagedCategories.PageSize
+        );
     }
 
     public async Task<CategoryResponseDto> GetByIdAsync(int id, CancellationToken cancellationToken = default)

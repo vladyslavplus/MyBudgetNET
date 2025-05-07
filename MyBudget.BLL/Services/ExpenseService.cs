@@ -3,6 +3,8 @@ using MyBudget.BLL.DTOs.Expense;
 using MyBudget.BLL.Exceptions;
 using MyBudget.BLL.Services.Interfaces;
 using MyBudget.DAL.Entities;
+using MyBudget.DAL.Entities.HelpModels;
+using MyBudget.DAL.Helpers;
 using MyBudget.DAL.UOW;
 
 namespace MyBudget.BLL.Services;
@@ -34,6 +36,21 @@ public class ExpenseService : IExpenseService
     {
         var expenses = await _unitOfWork.Expenses.GetByCategoryIdAsync(categoryId, cancellationToken);
         return expenses.Adapt<IEnumerable<ExpenseMiniResponseDto>>();
+    }
+
+    public async Task<PagedList<ExpenseResponseDto>> GetPaginatedAsync(ExpenseParameters parameters, CancellationToken cancellationToken = default)
+    {
+        var pagedExpenses = await _unitOfWork.Expenses
+            .GetAllPaginatedAsync(parameters, new SortHelper<Expense>(), cancellationToken);
+
+        var mapped = pagedExpenses.Select(e => e.Adapt<ExpenseResponseDto>()).ToList();
+
+        return new PagedList<ExpenseResponseDto>(
+            mapped,
+            pagedExpenses.TotalCount,
+            pagedExpenses.CurrentPage,
+            pagedExpenses.PageSize
+        );
     }
 
     public async Task<ExpenseResponseDto> CreateAsync(ExpenseCreateDto dto, CancellationToken cancellationToken = default)
