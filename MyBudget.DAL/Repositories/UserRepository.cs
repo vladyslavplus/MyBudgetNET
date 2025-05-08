@@ -22,6 +22,15 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             .ToListAsync(cancellationToken);
     }
 
+    public async Task<User?> GetByUserIdAsync(string userId, CancellationToken cancellationToken = default)
+    {
+        return await _dbSet
+            .AsNoTracking()
+            .Include(u => u.Expenses)
+            .ThenInclude(e => e.Category)
+            .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+    }
+
     public async Task<PagedList<User>> GetAllPaginatedAsync(UserParameters parameters, ISortHelper<User> sortHelper, CancellationToken cancellationToken = default)
     {
         var query = _dbSet.AsQueryable();
@@ -45,7 +54,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         );
     }
 
-    public async Task<User?> GetUserWithExpensesAsync(int userId, CancellationToken cancellationToken = default)
+    public async Task<User?> GetUserWithExpensesAsync(string userId, CancellationToken cancellationToken = default)
     {
         return await _dbSet
             .AsNoTracking()
@@ -68,7 +77,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             .AnyAsync(u => u.Email == email, cancellationToken);
     }
 
-    public async Task<bool> IsBlockedAsync(int userId, CancellationToken cancellationToken = default)
+    public async Task<bool> IsBlockedAsync(string userId, CancellationToken cancellationToken = default)
     {
         return await _dbSet
             .AsNoTracking()

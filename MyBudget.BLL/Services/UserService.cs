@@ -39,7 +39,7 @@ public class UserService : IUserService
         );
     }
 
-    public async Task<UserFullResponseDto> GetFullByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<UserFullResponseDto> GetFullByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var user = await _unitOfWork.Users.GetUserWithExpensesAsync(id, cancellationToken);
         if (user is null)
@@ -54,7 +54,7 @@ public class UserService : IUserService
         return users.Adapt<IEnumerable<UserResponseDto>>();
     }
 
-    public async Task<UserResponseDto> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<UserResponseDto> GetByIdAsync(string id, CancellationToken cancellationToken = default)
     {
         var user = await GetUserByIdOrThrowAsync(id, cancellationToken);
         return user.Adapt<UserResponseDto>();
@@ -71,7 +71,7 @@ public class UserService : IUserService
         return user.Adapt<UserResponseDto>();
     }
 
-    public async Task<UserResponseDto> UpdateAsync(int id, UserUpdateDto dto, CancellationToken cancellationToken = default)
+    public async Task<UserResponseDto> UpdateAsync(string id, UserUpdateDto dto, CancellationToken cancellationToken = default)
     {
         var user = await GetUserByIdOrThrowAsync(id, cancellationToken);
 
@@ -82,7 +82,7 @@ public class UserService : IUserService
         return user.Adapt<UserResponseDto>();
     }
 
-    public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<bool> DeleteAsync(string id, CancellationToken cancellationToken = default)
     {
         var user = await GetUserByIdOrThrowAsync(id, cancellationToken);
 
@@ -92,9 +92,9 @@ public class UserService : IUserService
         return true;
     }
     
-    private async Task<User> GetUserByIdOrThrowAsync(int id, CancellationToken cancellationToken)
+    private async Task<User> GetUserByIdOrThrowAsync(string id, CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.Users.GetByIdAsync(id, cancellationToken);
+        var user = await _unitOfWork.Users.GetByUserIdAsync(id, cancellationToken);
         if (user == null)
             throw new NotFoundException($"User with ID {id} not found.");
             

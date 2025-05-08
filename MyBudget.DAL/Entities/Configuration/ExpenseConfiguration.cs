@@ -21,6 +21,9 @@ public class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
         builder.Property(e => e.Description)
             .HasMaxLength(500);
 
+        builder.Property(e => e.UserId)
+            .HasMaxLength(100);
+        
         builder.HasOne(e => e.User)
             .WithMany(u => u.Expenses)
             .HasForeignKey(e => e.UserId)

@@ -6,7 +6,7 @@ namespace MyBudget.BLL.Services.Interfaces;
 
 public interface IExpenseService
 {
-    Task<IEnumerable<ExpenseMiniResponseDto>> GetAllByUserIdAsync(int userId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<ExpenseMiniResponseDto>> GetAllByUserIdAsync(string userId, CancellationToken cancellationToken = default);
     Task<ExpenseResponseDto> GetByIdAsync(int id, CancellationToken cancellationToken = default);
     Task<IEnumerable<ExpenseMiniResponseDto>> GetByCategoryIdAsync(int categoryId, CancellationToken cancellationToken = default);
     Task<PagedList<ExpenseResponseDto>> GetPaginatedAsync(ExpenseParameters parameters, CancellationToken cancellationToken = default);

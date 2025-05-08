@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyBudget.BLL.DTOs.Expense;
 using MyBudget.BLL.Services.Interfaces;
 using MyBudget.DAL.Entities.HelpModels;
 
 namespace MyBudget.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class ExpenseController : ControllerBase
@@ -16,10 +18,10 @@ public class ExpenseController : ControllerBase
         _expenseService = expenseService;
     }
     
-    [HttpGet("user/{userId:int}")]
+    [HttpGet("user/{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllByUserId(int userId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllByUserId(string userId, CancellationToken cancellationToken)
     {
         var expenses = await _expenseService.GetAllByUserIdAsync(userId, cancellationToken);
         return Ok(expenses);

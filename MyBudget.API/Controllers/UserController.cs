@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyBudget.BLL.DTOs.User;
 using MyBudget.BLL.Services.Interfaces;
 using MyBudget.DAL.Entities.HelpModels;
 
 namespace MyBudget.API.Controllers;
 
+[Authorize(Roles = "Admin")]
 [Route("api/[controller]")]
 [ApiController]
 public class UserController : ControllerBase
@@ -43,21 +45,21 @@ public class UserController : ControllerBase
         return Ok(paginatedExpenses);
     }
     
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetById(string id, CancellationToken cancellationToken)
     {
         var user = await _userService.GetByIdAsync(id, cancellationToken);
         return Ok(user);
     }
     
-    [HttpGet("{id:int}/with-expenses")]
+    [HttpGet("{id}/with-expenses")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetFullById(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetFullById(string id, CancellationToken cancellationToken)
     {
         var user = await _userService.GetFullByIdAsync(id, cancellationToken);
         return Ok(user);
@@ -74,23 +76,23 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
     
-    [HttpPut("{id:int}")]
+    [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Update(int id, [FromBody] UserUpdateDto dto, CancellationToken cancellationToken)
+    public async Task<IActionResult> Update(string id, [FromBody] UserUpdateDto dto, CancellationToken cancellationToken)
     {
         await _userService.UpdateAsync(id, dto, cancellationToken);
         return NoContent();
     }
     
-    [HttpDelete("{id:int}")]
+    [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
     {
         await _userService.DeleteAsync(id, cancellationToken);
         return NoContent();

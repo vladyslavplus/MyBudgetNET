@@ -37,6 +37,7 @@ public class GlobalExceptionHandlingMiddleware
             ConflictException => (HttpStatusCode.Conflict, exception.Message),
             ArgumentException => (HttpStatusCode.BadRequest, exception.Message),
             ValidationException => (HttpStatusCode.BadRequest, exception.Message),
+            UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "Unauthorized access. Please login."),
             _ => (HttpStatusCode.InternalServerError, "An unexpected error occurred.")
         };
 
@@ -45,7 +46,7 @@ public class GlobalExceptionHandlingMiddleware
             Code = (int)statusCode,
             Error = errorMessage
         };
-
+        
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)statusCode;
 

@@ -13,7 +13,7 @@ public class ExpenseRepository : GenericRepository<Expense>, IExpenseRepository
     {
     }
 
-    public async Task<IEnumerable<Expense>> GetByUserIdAsync(int userId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Expense>> GetByUserIdAsync(string userId, CancellationToken cancellationToken = default)
     {
         return await ExpensesWithCategory
             .Where(e => e.UserId == userId)

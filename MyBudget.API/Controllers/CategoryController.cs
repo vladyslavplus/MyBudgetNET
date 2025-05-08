@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyBudget.BLL.DTOs.Category;
 using MyBudget.BLL.Services.Interfaces;
-using MyBudget.DAL.Entities;
 using MyBudget.DAL.Entities.HelpModels;
-using MyBudget.DAL.Helpers;
 
 namespace MyBudget.API.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class CategoryController : ControllerBase
@@ -26,7 +27,7 @@ public class CategoryController : ControllerBase
         var categories = await _categoryService.GetAllAsync(cancellationToken);
         return Ok(categories);
     }
-
+    
     [HttpGet("with-expenses")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -56,6 +57,7 @@ public class CategoryController : ControllerBase
         return Ok(category);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -67,6 +69,7 @@ public class CategoryController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -79,6 +82,7 @@ public class CategoryController : ControllerBase
         return NoContent();
     }   
     
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

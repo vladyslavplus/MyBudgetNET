@@ -18,7 +18,7 @@ public class ExpenseService : IExpenseService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IEnumerable<ExpenseMiniResponseDto>> GetAllByUserIdAsync(int userId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ExpenseMiniResponseDto>> GetAllByUserIdAsync(string userId, CancellationToken cancellationToken = default)
     {
         var expenses = await _unitOfWork.Expenses.GetByUserIdAsync(userId, cancellationToken);
         return expenses.Adapt<IEnumerable<ExpenseMiniResponseDto>>();
