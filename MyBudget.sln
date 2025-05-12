@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.DAL", "MyBudget.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.BLL", "MyBudget.BLL\MyBudget.BLL.csproj", "{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.BLL.Tests", "MyBudget.BLL.Tests\MyBudget.BLL.Tests.csproj", "{70954E50-CFA1-4108-BEC5-944167DFED51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +30,9 @@ Global
 		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70954E50-CFA1-4108-BEC5-944167DFED51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70954E50-CFA1-4108-BEC5-944167DFED51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70954E50-CFA1-4108-BEC5-944167DFED51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70954E50-CFA1-4108-BEC5-944167DFED51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
