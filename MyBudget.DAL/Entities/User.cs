@@ -6,4 +6,5 @@ public class User : IdentityUser
 { 
     public bool IsBlocked { get; set; } = false;
     public ICollection<Expense> Expenses { get; set; } = new List<Expense>();
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }

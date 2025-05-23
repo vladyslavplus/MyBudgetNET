@@ -13,4 +13,5 @@ public interface IUserRepository : IGenericRepository<User>
     Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
     Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken = default);
     Task<bool> IsBlockedAsync(string userId, CancellationToken cancellationToken = default);
+    Task BlockUserAsync(string userId, bool isBlocked, CancellationToken cancellationToken = default);
 }

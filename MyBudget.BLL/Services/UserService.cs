@@ -91,7 +91,19 @@ public class UserService : IUserService
 
         return true;
     }
-    
+
+    public async Task<UserResponseDto> SetBlockStatusAsync(string userId, bool isBlocked, CancellationToken cancellationToken = default)
+    {
+        var user = await _unitOfWork.Users.GetByUserIdAsync(userId, cancellationToken);
+        if (user is null)
+            throw new NotFoundException($"User with ID {userId} not found.");
+
+        await _unitOfWork.Users.BlockUserAsync(userId, isBlocked, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return user.Adapt<UserResponseDto>();
+    }
+
     private async Task<User> GetUserByIdOrThrowAsync(string id, CancellationToken cancellationToken)
     {
         var user = await _unitOfWork.Users.GetByUserIdAsync(id, cancellationToken);

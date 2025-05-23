@@ -28,6 +28,7 @@ public class CategoryController : ControllerBase
         return Ok(categories);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpGet("with-expenses")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

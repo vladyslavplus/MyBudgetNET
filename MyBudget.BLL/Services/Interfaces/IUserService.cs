@@ -14,4 +14,5 @@ public interface IUserService
     Task<UserResponseDto> CreateAsync(UserCreateDto dto, CancellationToken cancellationToken = default);
     Task<UserResponseDto> UpdateAsync(string id, UserUpdateDto dto, CancellationToken cancellationToken = default);
     Task<bool> DeleteAsync(string id, CancellationToken cancellationToken = default);
+    Task<UserResponseDto> SetBlockStatusAsync(string userId, bool isBlocked, CancellationToken cancellationToken = default);
 }

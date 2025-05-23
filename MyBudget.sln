@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.DAL", "MyBudget.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.BLL", "MyBudget.BLL\MyBudget.BLL.csproj", "{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBudget.JWT", "MyBudget.JWT\MyBudget.JWT.csproj", "{3E0D3936-4D79-4768-8134-A984CE0A46A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +30,9 @@ Global
 		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44FD1FC-6CA0-4642-9521-99D5D3A45F42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E0D3936-4D79-4768-8134-A984CE0A46A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E0D3936-4D79-4768-8134-A984CE0A46A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E0D3936-4D79-4768-8134-A984CE0A46A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E0D3936-4D79-4768-8134-A984CE0A46A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

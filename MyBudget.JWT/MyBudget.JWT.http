@@ -1,0 +1,6 @@
+@MyBudget.JWT_HostAddress = http://localhost:5148
+
+GET {{MyBudget.JWT_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

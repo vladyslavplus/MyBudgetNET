@@ -85,4 +85,12 @@ public class UserRepository : GenericRepository<User>, IUserRepository
             .Select(u => u.IsBlocked)
             .FirstOrDefaultAsync(cancellationToken);
     }
+    
+    public async Task BlockUserAsync(string userId, bool isBlocked, CancellationToken cancellationToken = default)
+    {
+        var user = await _dbSet.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+
+        user!.IsBlocked = isBlocked;
+        _dbSet.Update(user);
+    }
 }

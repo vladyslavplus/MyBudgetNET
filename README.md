@@ -1,6 +1,6 @@
 # 📊 MyBudgetNET
 
-**MyBudgetNET** is a RESTful API for personal expense tracking, built using ASP.NET Core Web API 8, PostgreSQL, and Mapster. The project follows a 3-layer architecture with clear separation between the DAL, BLL, and API layers.
+**MyBudgetNET** is a RESTful API for personal expense tracking, built using ASP.NET Core Web API 8, PostgreSQL, and Mapster. The project follows a 3-layer architecture with clear separation between the DAL, BLL, JWT and API layers.
 
 ## 🔧 Technologies Used
 
@@ -9,15 +9,16 @@
 - PostgreSQL (via Npgsql)
 - Mapster for DTO/Entity mapping
 - ASP.NET Identity + JWT for authentication
-- 3-layer architecture (DAL, BLL, API)
+- 3-layer architecture (DAL, BLL, API) + JWT 
 
 ## 🧱 Architecture
 
-The project is structured into three main layers:
+The project is structured into three main layers + one for jwt auth:
 
 - **MyBudget.DAL** — Data access layer (models, DbContext, migrations)
 - **MyBudget.BLL** — Business logic layer (services, interfaces)
 - **MyBudget.API** — Presentation layer (controllers, routing, DI configuration)
+- **MyBudget.JWT** - Auth layer (controllers, middlewares, DI configuration)
 
 This ensures scalability, testability, and maintainability.
 
@@ -50,9 +51,11 @@ dotnet ef database update --project MyBudget.DAL --startup-project MyBudget.API
 
 ```bash
 dotnet run --project MyBudget.API
+dotnet run --project MyBudget.JWT
 ```
 
-API will be available at: `https://localhost:5001` or `http://localhost:5000`.
+API will be available at: `https://localhost:7001` or `http://localhost:5063`.
+API will be available at: `https://localhost:7048`.
 
 ## 🧪 MVP (Minimum Viable Product)
 
@@ -60,7 +63,6 @@ API will be available at: `https://localhost:5001` or `http://localhost:5000`.
 - Full CRUD for expenses
 - Filtering expenses by date, category, amount
 - Pagination and sorting of expenses
-- Monthly total expense calculation
 - CRUD for user-defined categories
 
 ## 📌 Product Backlog
@@ -70,12 +72,11 @@ API will be available at: `https://localhost:5001` or `http://localhost:5000`.
 | ID  | User Story                                                                                                      |
 | --- | --------------------------------------------------------------------------------------------------------------- |
 | US1 | As a user, I want to register and log in to track my expenses.                                                  |
-| US2 | As a user, I want to add new expenses with amount, category, date, and description.                            |
+| US2 | As a user, I want to add new expenses with amount, category, date, and description.                             |
 | US3 | As a user, I want to edit and delete my expenses to manage my history.                                          |
-| US5 | As a user, I want to view a paginated list of my expenses for easier navigation through large data sets.       |
-| US6 | As a user, I want to filter expenses by date, category, or amount to find specific records quickly.            |
-| US7 | As a user, I want to see the total monthly expenses to control my budget.                                       |
-| US8 | As a user, I want to update my personal information or change my password.                                     |
+| US5 | As a user, I want to view a paginated list of my expenses for easier navigation through large data sets.        |
+| US6 | As a user, I want to filter expenses by date, category, or amount to find specific records quickly.             |
+| US7 | As a user, I want to update my password.                                                                        |
 
 ### 🛡 Admin
 
@@ -83,10 +84,10 @@ API will be available at: `https://localhost:5001` or `http://localhost:5000`.
 | ---- | -------------------------------------------------------------------------------------------------------------------------------- |
 | US9  | As an admin, I want to see a list of all registered users to monitor activity.                                                   |
 | US10 | As an admin, I want to block or delete users to maintain system security.                                                        |
-| US11 | As an admin, I want to view global statistics — total expenses, active users count, most common categories.                      |
+| US11 | As an admin, I want to view global statistics — total expenses, common categories.                                               |
 | US12 | As an admin, I want to create/edit/delete global categories available to new users.                                              |
 | US13 | As an admin, I want to create new admins or manually assign roles.                                                               |
-| US14 | As an admin, I want to see all expenses from any user (e.g., for moderation or audit purposes).                                  |
+| US14 | As an admin, I want to see all expenses from any user.                                                                           |
 
 ## 🧰 Project Structure
 
@@ -96,6 +97,7 @@ MyBudgetNET/
 ├── MyBudget.API/       # Controllers, DI, configurations
 ├── MyBudget.BLL/       # Services, interfaces, business logic
 ├── MyBudget.DAL/       # Models, DbContext, migrations
+├── MyBudget.JWT/       # Controllers, Middlewares, DI, configurations
 ```
 
 ## 🔐 Authentication

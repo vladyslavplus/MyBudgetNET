@@ -97,4 +97,15 @@ public class UserController : ControllerBase
         await _userService.DeleteAsync(id, cancellationToken);
         return NoContent();
     }
+    
+    [HttpPut("{id}/block")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> SetBlockStatus(string id, [FromQuery] bool isBlocked, CancellationToken cancellationToken)
+    {
+        await _userService.SetBlockStatusAsync(id, isBlocked, cancellationToken);
+        return NoContent();
+    }
 }

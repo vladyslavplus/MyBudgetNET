@@ -18,6 +18,7 @@ public class ExpenseController : ControllerBase
         _expenseService = expenseService;
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpGet("user/{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

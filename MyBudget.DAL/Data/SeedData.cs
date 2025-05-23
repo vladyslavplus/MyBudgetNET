@@ -42,7 +42,7 @@ public static class SeedData
 
             var admin = new User
             {
-                UserName = "admin",
+                UserName = "admin123",
                 Email = "admin@mybudget.com",
                 EmailConfirmed = true
             };
